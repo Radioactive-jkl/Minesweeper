@@ -28,6 +28,7 @@
 #include "common.h"
 #include "customgamedialog.h"
 #include "minescene.h"
+#include "rank.h"
 
 
 class Mainwindow : public QMainWindow
@@ -39,11 +40,11 @@ public:
     ~Mainwindow();
 
     //action objects for menu
-    QAction *newaction;
     QAction *primarleveaction;
     QAction *middleleveaction;
     QAction *seniorleveaction;
-    QAction *customaction;
+    QAction *customleveaction;
+    QAction *rankaction;
     QAction *exitaction;
     QAction *aboutaction;
 
@@ -65,6 +66,7 @@ public slots:
     void writesettings();
     void slot_newgame();
     void slot_acceptCustomvale(int,int,int);
+    void slot_rankchecked();
     void slot_about();
     void slot_update();
     void slot_displayMineNum(int);

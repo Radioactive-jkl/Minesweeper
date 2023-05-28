@@ -1,7 +1,8 @@
-/* * * * * * * * * * * * * * * *
- * Platform: Qt creator 5.14.2 *
- * Author: Radioactive-jkl     *
- * * * * * * * * * * * * * * * */
+/* * * * * * * * * * * * * * * * * * * * * * * * * *
+ * Platform: Qt creator 5.14.2                     *
+ * Author: Radioactive-jkl                         *
+ * https://github.com/Radioactive-jkl/Minesweeper  *
+ * * * * * * * * * * * * * * * * * * * * * * * * * */
 
 
 #include <QApplication>

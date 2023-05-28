@@ -1,6 +1,7 @@
 #include "customgamedialog.h"
 
 
+// UI design in Constructor
 CustomGameDialog::CustomGameDialog(QWidget *parent):QDialog(parent)
 {
     this->setWindowTitle("Custom Game");
@@ -45,12 +46,13 @@ CustomGameDialog::CustomGameDialog(QWidget *parent):QDialog(parent)
 void CustomGameDialog::readsettings()
 {
     QSettings *setting = new QSettings("Get_arg","mine",this);
+
     setting->beginGroup("customGame");
     int row = setting->value("custom_row",10).toInt();
     int col = setting->value("custom_col",10).toInt();
     int mine = setting->value("custom_mine",11).toInt();
-
     setting->endGroup();
+
     rowspinbox->setValue(row);
     colspinbox->setValue(col);
     minenumspinbox->setValue(mine);

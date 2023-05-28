@@ -3,7 +3,7 @@
 # Project created by QtCreator 2023-05-25T11:12:07
 # Platform: Qt creator 5.14.2
 # Author: Radioactive-jkl
-#
+# https://github.com/Radioactive-jkl/Minesweeper
 #-------------------------------------------------
 
 QT       += core gui multimedia
@@ -29,13 +29,17 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     customgamedialog.cpp \
     mineitem.cpp \
-    minescene.cpp
+    minescene.cpp \
+    rank.cpp
 
 HEADERS  += mainwindow.h \
     common.h \
     customgamedialog.h \
     mineitem.h \
-    minescene.h
+    minescene.h \
+    rank.h
 
 RESOURCES += \
     src.qrc
+
+RC_FILE += exe_ico.rc

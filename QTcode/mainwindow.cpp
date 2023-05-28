@@ -13,31 +13,28 @@ Mainwindow::Mainwindow(QWidget *parent)
 
 void Mainwindow::create_action()
 {
-    newaction = new QAction("start",this);
-    this->connect(newaction,SIGNAL(triggered()),this,SLOT(slot_newgame()));
-
-
     //Game level choices' settings
     primarleveaction = new QAction("primary",this);
     primarleveaction->setCheckable(true);
-    primarleveaction->setChecked(true);
+
     middleleveaction = new QAction("middle",this);
     middleleveaction->setCheckable(true);
 
     seniorleveaction = new QAction("senior",this);
     seniorleveaction->setCheckable(true);
 
-    customaction = new QAction("custom",this);
-    customaction->setCheckable(true);
-    QActionGroup *actionGroup = new QActionGroup(this);
+    customleveaction = new QAction("custom",this);
+    customleveaction->setCheckable(true);
 
+    QActionGroup *actionGroup = new QActionGroup(this);
     actionGroup->addAction(primarleveaction);
     actionGroup->addAction(middleleveaction);
     actionGroup->addAction(seniorleveaction);
-    actionGroup->addAction(customaction);
-
+    actionGroup->addAction(customleveaction);
     this->connect(actionGroup,SIGNAL(triggered(QAction*)),this,SLOT(slot_newgamebyleve(QAction*)));
 
+    rankaction = new QAction("rank",this);
+    this->connect(rankaction,SIGNAL(triggered(bool)),this,SLOT(slot_rankchecked()));
 
     exitaction = new QAction("quit",this);
     this->connect(exitaction,SIGNAL(triggered(bool)),this,SLOT(close()));
@@ -120,15 +117,14 @@ void Mainwindow::create_menu()
     QMenu *file_menu = menu_bar->addMenu("options");
     QMenu *help_menu = menu_bar->addMenu("help");
 
-    file_menu->addAction(newaction);
-    file_menu->addSeparator();
     file_menu->addAction(primarleveaction);
     file_menu->addAction(middleleveaction);
-
     file_menu->addAction(seniorleveaction);
-    file_menu->addAction(customaction);
+    file_menu->addAction(customleveaction);
+
     file_menu->addSeparator();
 
+    file_menu->addAction(rankaction);
     file_menu->addAction(exitaction);
     help_menu->addAction(aboutaction);
 }
@@ -153,7 +149,7 @@ void Mainwindow::writesettings()
 
 void Mainwindow::slot_newgamebyleve(QAction *act)
 {
-    if(act == primarleveaction)
+    if     (act == primarleveaction)
     {
         this->minescene->m_scenerow   = COMMON::PRIMARROWANDCOL;
         this->minescene->m_scenecol   = COMMON::PRIMARROWANDCOL;
@@ -176,13 +172,14 @@ void Mainwindow::slot_newgamebyleve(QAction *act)
         this->minescene->m_minesum    = COMMON::SENIORMINENUM;
         this->minescene->m_crrentleve = COMMON::SENIORLEVE;
     }
-    else if(act == customaction)
+    else if(act == customleveaction)
     {
         CustomGameDialog *custom = new CustomGameDialog(this);
         this->connect(custom,SIGNAL(signal_sendCustomset(int,int,int)),this,SLOT(slot_acceptCustomvale(int,int,int)));
         custom->exec();
     }
     this->writesettings();
+
     this->slot_newgame();
 }
 
@@ -198,14 +195,87 @@ void Mainwindow::slot_acceptCustomvale(int rownum,int colnum,int minenum)
     this->slot_newgame();
 }
 
+void Mainwindow::slot_rankchecked()
+{
+    rank *ranklist = new rank(this);
+    ranklist->exec();
+}
+
 void Mainwindow::slot_about()
 {
-    QString str = tr("Game: MineSweeper\n Version: 1.0\n Author:Radioactive-jkl\n");
+    QString str = tr("Game: MineSweeper\n Version: 1.1\n Author:Radioactive-jkl\n");
     QMessageBox::about(this,tr("Some Information"),str);
 }
 
 void Mainwindow::slot_update()
 {
+    QSettings settings("Get_arg","rank");
+    int recordtime = 999;
+    QString newname;
+    switch(minescene->m_crrentleve)
+    {
+        case 0:
+            recordtime = settings.value("primartime").toInt();
+            qDebug("%d",recordtime);
+            if(m_time < recordtime)
+            {
+                bool ok;
+                newname = QInputDialog::getText(
+                            this,
+                            tr("NEW RECORD"),
+                            "A new record came out! Please enter your name:",
+                            QLineEdit::Normal,QString(),
+                            &ok
+                            );
+                if(ok)
+                {
+                    settings.setValue("primartime",m_time);
+                    settings.setValue("primarname",newname);
+                }
+            }
+            break;
+
+        case 1:
+            recordtime = settings.value("middletime").toInt();
+            if(m_time < recordtime)
+            {
+                bool ok;
+                newname = QInputDialog::getText(
+                            this,
+                            tr("NEW RECORD"),
+                            "A new record came out! Please enter your name:",
+                            QLineEdit::Normal,QString(),
+                            &ok
+                            );
+                if(ok)
+                {
+                    settings.setValue("middletime",m_time);
+                    settings.setValue("middlename",newname);
+                }
+            }
+            break;
+
+        case 2:
+            recordtime = settings.value("seniortime").toInt();
+            if(m_time < recordtime)
+            {
+                bool ok;
+                newname = QInputDialog::getText(
+                            this,
+                            tr("NEW RECORD"),
+                            "A new record came out! Please enter your name:",
+                            QLineEdit::Normal,QString(),
+                            &ok
+                            );
+                if(ok)
+                {
+                    settings.setValue("seniortime",m_time);
+                    settings.setValue("seniorname",newname);
+                }
+            }
+            break;
+
+    }
 
     QString speech = "Succeed in ";
     speech = speech + QString::number(m_time) + " seconds!\n Go on?";
@@ -236,7 +306,6 @@ void Mainwindow::slot_displayTime()
         m_timer->stop();
     }
 }
-
 
 Mainwindow::~Mainwindow()
 {
