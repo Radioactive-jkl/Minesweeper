@@ -36,6 +36,9 @@ void Mainwindow::create_action()
     rankaction = new QAction("rank",this);
     this->connect(rankaction,SIGNAL(triggered(bool)),this,SLOT(slot_rankchecked()));
 
+    minetypeaction = new QAction("mine",this);
+    this->connect(minetypeaction,SIGNAL(triggered(bool)),this,SLOT(slot_minetypechecked()));
+
     exitaction = new QAction("quit",this);
     this->connect(exitaction,SIGNAL(triggered(bool)),this,SLOT(close()));
 
@@ -125,6 +128,7 @@ void Mainwindow::create_menu()
     file_menu->addSeparator();
 
     file_menu->addAction(rankaction);
+    file_menu->addAction(minetypeaction);
     file_menu->addAction(exitaction);
     help_menu->addAction(aboutaction);
 }
@@ -304,6 +308,22 @@ void Mainwindow::slot_displayTime()
     else
     {
         m_timer->stop();
+    }
+}
+
+void Mainwindow::slot_minetypechecked()
+{
+    bool ok;
+    MineScene::minetype = QInputDialog::getText(
+                this,
+                tr("Mine Type"),
+                "Choose your mine type by 0, 1, 2:",
+                QLineEdit::Normal,QString(),
+                &ok
+                );
+    if(ok)
+    {
+
     }
 }
 

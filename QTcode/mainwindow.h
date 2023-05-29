@@ -45,6 +45,7 @@ public:
     QAction *seniorleveaction;
     QAction *customleveaction;
     QAction *rankaction;
+    QAction *minetypeaction;
     QAction *exitaction;
     QAction *aboutaction;
 
@@ -57,6 +58,7 @@ public:
     QPushButton *smilebtn;
     int m_time;
     QTimer *m_timer;
+
 
 public slots:
     //functions: feedback of actions
@@ -72,6 +74,7 @@ public slots:
     void slot_displayMineNum(int);
     void slot_displayTime();
     void slot_newgamebyleve(QAction*);
+    void slot_minetypechecked();
 };
 
 

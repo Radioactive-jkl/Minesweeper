@@ -30,6 +30,8 @@ public:
     int m_rightMineNum;
     bool m_isGameover;
     int m_remainNoMines;
+    static QString minetype;
+
     void initscene();
     void countAroundMines(MineItem *t_item);
     void openAllItesm();

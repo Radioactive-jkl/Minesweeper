@@ -1,6 +1,8 @@
 #include "minescene.h"
 #include "common.h"
 
+QString MineScene::minetype = "0";
+
 QPoint t_around[8] =
 {
     QPoint(-1,-1),
@@ -91,7 +93,10 @@ void MineScene::openAllItesm()
         {
             m_itemVec[i][j]->m_isOpened = true;
             if(m_itemVec[i][j]->m_isMine)
-                m_itemVec[i][j]->setPixmap(QPixmap(":/images/bong.png"));
+            {
+                QString pathbong = tr(":/images/") + tr("bong") + minetype + tr(".png");
+                m_itemVec[i][j]->setPixmap(pathbong);
+            }
             else
             {
                 if(!m_itemVec[i][j]->m_aroundMineNum)
