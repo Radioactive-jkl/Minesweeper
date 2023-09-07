@@ -4,6 +4,8 @@ Radioactive *`V1.1`*
 
 ---
 
+<a target="_blank" rel="noopener noreferrer" href="https://www.microsoft.com/zh-cn/windows"><img src="https://camo.githubusercontent.com/b44114213a5a462903bd69611bb6846f1dc41fe6f3230bd37c67c3d4eb65f08c/68747470733a2f2f696d672e736869656c64732e696f2f62616467652f2d57696e646f77732d626c61636b3f7374796c653d666c61742d737175617265266c6f676f3d77696e646f7773266c6f676f436f6c6f723d626c7565" alt="Windows" data-canonical-src="https://img.shields.io/badge/-Windows-black?style=flat-square&amp;logo=windows&amp;logoColor=blue" style="max-width: 100%;"></a>  [![Github Actions Badge](https://img.shields.io/badge/-Git%20-2088FF?style=flat&logo=Git&logoColor=white)](https://git-scm.com/)  [![qt](https://img.shields.io/badge/Qt%2FC%2B%2B-41CD52?logo=qt&logoColor=white)](https://www.qt.io/zh-cn/)
+
 #### Contents
 
 * [Highlights](#highlights)
